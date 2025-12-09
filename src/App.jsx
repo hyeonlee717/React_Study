@@ -10,6 +10,7 @@ function App() {
       <div className="black-nav">
         {/* jsx 문법1. class가 아니라 className */}
         <h4 style={{ color: 'red', fontSize: '16px' }}>블로그임</h4>
+        {/* jsx 문법3. 중괄호 안에 { 속성명: '속성값', 속성명: '속성값' } 대쉬x */}
       </div>
       <h4>{post}</h4>
       {/* jsx 문법2. 데이터바인딩 {중괄호} */}
