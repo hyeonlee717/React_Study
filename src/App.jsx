@@ -9,6 +9,7 @@ function App() {
   // a: state에 보관했던 자료, b:state 변경 도와주는 함수
   // html에 바로바로 변경사항이 반영되게 하고 싶은 곳에 사용함, 자주 변경되는 곳
   let [따봉, 따봉변경] = useState(0);
+  let [modal, setModal] = useState(false);
 
   return (
     <div className='App'>
@@ -41,11 +42,16 @@ function App() {
       </div>
 
       <div className='list'>
-        <h4>{글제목[2]}</h4>
+        <h4 onClick={function () {
+          setModal(!modal)
+        }}>{글제목[2]}</h4>
         <p>2월 17일 발행</p>
       </div>
 
-      <Modal></Modal>
+      {
+        modal == true ? <Modal></Modal> : null
+      }
+      {/* 3항 연산자 : 조건문 ? true일때 실행할 코드 : false일때 실행할 코드 */}
 
     </div>
   )
