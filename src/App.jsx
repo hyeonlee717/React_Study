@@ -4,12 +4,11 @@ import './App.css'
 // jsx는 javascript안에서 html을 쉽게 작성할 수 있게 도와주는 언어임
 function App() {
 
-  let post = '강남 우동 맛집';
   let [글제목, 글제목변경] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학'])
-  // a: state에 보관했던 자료, b:state 변경 도와주는 함수
-  // html에 바로바로 변경사항이 반영되게 하고 싶은 곳에 사용함, 자주 변경되는 곳
+  let [thumb, setThumb] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
+  let [input, setInput] = useState('');
 
   return (
     <div className='App'>
@@ -20,21 +19,62 @@ function App() {
 
       {
         글제목.map(function (a, i) {
-          let [따봉, 따봉변경] = useState(0);
           return (
+
             <div className='list' key={i}>
+
               <h4 onClick={function () {
                 setModal(!modal);
                 setTitle(i);
-              }}>{글제목[i]}
-                <span onClick={function () {
-                  따봉변경(따봉 + 1)
-                }}>👍</span> {따봉} </h4>
+              }}>
+
+                {글제목[i]}
+
+                <span onClick={function (e) {
+                  e.stopPropagation();
+                  let copy = [...thumb]
+                  copy[i] = copy[i] + 1
+                  setThumb(copy);
+                }}>👍</span>
+
+                {thumb[i]}
+
+              </h4>
+
               <p>2월 17일 발행</p>
+
+              <button onClick={() => {
+
+                let copyTitle = [...글제목];
+                copyTitle.splice(i, 1);
+                글제목변경(copyTitle);
+
+                let copyThumb = [...thumb];
+                copyThumb.splice(i, 1);
+                setThumb(copyThumb);
+
+              }}>삭제</button>
+
             </div>
           )
         })
       }
+
+      <input type="text" onChange={(e) => { setInput(e.target.value); }} />
+
+      <button onClick={() => {
+
+        let copyTitle = [...글제목];
+        copyTitle.unshift(input);
+        글제목변경(copyTitle);
+
+        let copyThumb = [...thumb];
+        copyThumb.unshift(0);
+        setThumb(copyThumb);
+
+        setInput('');
+
+      }}>글발행</button>
 
       {
         modal == true ? <Modal title={title} 글제목={글제목}></Modal> : null
