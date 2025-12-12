@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css'
 
 // jsx는 javascript안에서 html을 쉽게 작성할 수 있게 도와주는 언어임
@@ -26,18 +26,14 @@ function App() {
               <h4 onClick={function () {
                 setModal(!modal);
                 setTitle(i);
-              }}>
-
-                {글제목[i]}
+              }}>{글제목[i]}
 
                 <span onClick={function (e) {
                   e.stopPropagation();
                   let copy = [...thumb]
                   copy[i] = copy[i] + 1
                   setThumb(copy);
-                }}>👍</span>
-
-                {thumb[i]}
+                }}>👍 {thumb[i]}</span>
 
               </h4>
 
@@ -81,6 +77,8 @@ function App() {
       }
       {/* 3항 연산자 : 조건문 ? true일때 실행할 코드 : false일때 실행할 코드 */}
 
+      <Modal2 title={title}></Modal2>
+
     </div>
   );
 }
@@ -95,5 +93,26 @@ function Modal(props) {
     </div>
   )
 }
+
+// class를 이용한 component 생성(옛날 방식)
+class Modal2 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'kim',
+      age: 20
+    }
+  }
+  render() {
+    return (
+      <div>안녕 {this.props.title}, {this.state.age}
+        <button onClick={() => {
+          this.setState({ age: 21 })
+        }}>버튼</button>
+      </div >
+    )
+  }
+}
+// props로 상속받은 데이터는 class에서 변경 불가, 읽기만 가능
 
 export default App
